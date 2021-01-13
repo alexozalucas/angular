@@ -1,0 +1,92 @@
+<div class="container font-weight-bold mt-5 ">
+
+    <form>
+        <div class="form-group row ">
+            <label for="palavra" class="col-md-3 col-lg-2 col-form-label  ">Palavra:</label>
+            <div class="col-md-6 col-lg-8 mb-2">
+
+                <div *ngIf="Bloquear; else BloquearEntrada">
+                    <input type="password" class="form-control text-uppercase" placeholder="Digite a palavra" (input)="atualizaPalavra($event)">
+                </div>
+                <ng-template #BloquearEntrada>
+                    <input type="password" class="form-control text-uppercase" placeholder="***********************" (input)="atualizaPalavra($event)" readonly>
+                </ng-template>
+
+            </div>
+            <div class="col col-lg-10 col-xl d-flex justify-content-end">
+                <button type="button" (click)="IniciarJogo()" class="btn btn-secondary btn-sm">Começar</button>
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+            <label for="tentativa" class="col-md-3 col-lg-2 col-form-label ">Letras:</label>
+            <div class="col-md-9 col-lg-10">
+                <input class="form-control" style="width:40px" id="tentativa" type="text" placeholder="{{qtdLetras}}"
+                    readonly>
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+            <label for="acerto" class="col-md-3 col-lg-2 col-form-label ">Erros:</label>
+            <div class="col-md-9 col-lg-10">
+                <input class="form-control" style="width:40px" id="acerto" type="text" placeholder="{{qtdErros}}" readonly>
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+            <label for="erros" class="col-md-3 col-lg-2 col-form-label ">Acertos:</label>
+            <div class="col-md-9 col-lg-10">
+                <input class="form-control" style="width:40px" id="erros" type="text" placeholder="{{qtdAcertos}}" readonly>
+            </div>
+
+
+        </div>
+
+        <div class="form-group row mb-4">
+            <label for="Palpite" class="col-md-3 col-lg-2 col-form-label ">Palpite:</label>
+            <div *ngIf="Bloquear; else NaoBloquear">
+                <div class="col-auto">
+                    <input class="form-control text-uppercase" autocomplete="off" style="width:40px; " maxlength=1 id="Palpite"
+                     type="text" readonly>
+                </div>
+            </div>
+            <ng-template #NaoBloquear>
+                <div class="col-auto">
+                    <input class="form-control text-uppercase" autocomplete="off" style="width:40px; " maxlength=1 id="Palpite"
+                        type="text" (input)="atualizaLetra($event)" [value]='letra'>
+                </div>
+            </ng-template>
+
+            <div class="col-auto d-flex justify-content-start ">
+                <button type="button" (click)="BuscarLetras()" class="btn btn-primary ">Chute</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col d-flex justify-content-end text-uppercase  ">
+            <h5> <label>{{marcacao}}</label>
+            </h5>
+
+        </div>
+        <div class="col  d-flex justify-content-end">
+            Cronômetro
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mr-5 d-flex justify-content-end">
+            {{tempo}}
+        </div>
+    </div>
+
+    <div class="form-group row ">
+        <label for="palavra" class="col-md-3 col-lg-2 col-form-label  ">Palavras utilizadas:</label>
+        <div class="col-md-6 col-lg-8 mb-2">
+            <input class="form-control mt-1 text-uppercase" id="inlineFormInput" type="text"  placeholder="{{recuperaLetras}}" readonly>
+        </div>
+    </div>
+
+</div>
